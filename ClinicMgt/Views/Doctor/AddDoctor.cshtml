@@ -1,0 +1,153 @@
+﻿@model ClinicMgt.Models.Doctor
+
+@{
+    ViewData["Title"] = "AddDoctor";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<nav class=" my-nav navbar navbar-light navbar-expand-lg ">
+
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Indexes">Home</a>
+            </li>
+            <li>
+                <a class="nav-link" asp-action="IndexDoc">View Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " asp-controller="Login" asp-action="Login">Log-out</a>
+            </li>
+
+        </ul>
+    </div>
+
+</nav>
+
+<h4>Doctor's Form</h4>
+
+<div class="container">
+
+    <form asp-action="AddDoctor" method="post">
+        <div class="preview text-center">
+            <img class="preview-img" src="http://simpleicon.com/wp-content/uploads/account.png" alt="Preview Image" width="200" height="200" />
+
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="FirstName" class="control-label"></label>
+            @Html.EditorFor(m => m.FirstName)
+
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName" class="control-label"></label>
+            @Html.EditorFor(m => m.LastName)
+
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Sex" class="control-label"></label>
+            <label>Female @Html.RadioButtonFor(m => m.Sex, "Female")</label>
+            <label>Male @Html.RadioButtonFor(m => m.Sex, "Male")</label>
+            <label>>Others @Html.RadioButtonFor(m => m.Sex, "Others")</label>
+            <span asp-validation-for="Sex" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Specialization" class="control-label"></label>
+            @Html.DropDownList("Specialization", new List<SelectListItem>
+          {
+            new SelectListItem{Value="Orthopaedics",Text="Orthopaedics"},
+             new SelectListItem{Value="Paediatrician",Text="Paediatrician"},
+              new SelectListItem{Value="Oncologist",Text="Oncologist"},
+               new SelectListItem{Value="Surgeon",Text="Surgeon"},
+
+         }, "Specialization", new { @class = "form-control" })
+            <span asp-validation-for="Specialization" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VisitingHoursFrom" class="control-label"></label>
+            @Html.DropDownList("VisitingHoursFrom", new List<SelectListItem
+                   >
+                    {
+                 new SelectListItem{Value="06:00 PM",Text="06:00 PM"},
+                  new SelectListItem{Value="07:00PM",Text="07:00PM"},
+                   new SelectListItem{Value="08:00PM",Text="08:00PM"},
+                    new SelectListItem{Value="09:00 PM-",Text="09:00 PM"},
+
+              }, "From", new { @class = "form-control" })
+            <span asp-validation-for="VisitingHoursFrom" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VisitingHoursTo" class="control-label"></label>
+            @Html.DropDownList("VisitingHoursTo", new List<SelectListItem
+                  >
+                   {
+                new SelectListItem{Value="07:00 PM",Text="07:00 PM"},
+                 new SelectListItem{Value="08:00PM",Text="08:00PM"},
+                  new SelectListItem{Value="09:00PM",Text="09:00PM"},
+                   new SelectListItem{Value="10:00 PM-",Text="10:00 PM"},
+
+             }, "To", new { @class = "form-control" })
+            <span asp-validation-for="VisitingHoursTo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VisitDate" class="control-label"></label>
+            @Html.EditorFor(m => m.VisitDate)
+            <span asp-validation-for="VisitDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add Doctor" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div>
+    <a asp-action="IndexDoc">Click here to view Doctors</a>
+</div>
+<style>
+    .my-nav {
+        position: absolute;
+        z-index: 10;
+        width: 100%;
+    }
+
+    .preview {
+        padding: 10px;
+        position: relative;
+    }
+
+    .preview-img {
+        border-radius: 100%;
+        box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.7);
+    }
+
+    .form-group {
+        width: 250px;
+        margin: 10px auto;
+    }
+
+        .form-group input {
+            transition: 0.3s linear;
+        }
+
+            .form-group input:focus {
+                border: 1px solid crimson;
+                box-shadow: 0 0 0 0;
+            }
+
+
+    div {
+        font-family: 'Times New Roman', Times, serif;
+        color: lightcoral;
+    }
+</style>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
